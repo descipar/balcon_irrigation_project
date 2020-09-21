@@ -9,7 +9,7 @@ int pumpeTopf1Pin = 13;
 //int pumpeTopf2Pin = 12;
 //int pumpeTopf3Pin = 13;
 
-//Unterhalb diser Sensorwerte wird nicht gegossen
+//Unterhalb diser Sensorwerte wird nicht gegossen. Je höher die Messwerte desto trockener der Topf
 int sollTopf1 = 300;
 //int sollTopf2 = 300;
 //int sollTopf3 = 300;
