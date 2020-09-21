@@ -10,7 +10,7 @@ int pumpeTopf1Pin = 13;
 //int pumpeTopf3Pin = 13;
 
 //Unterhalb diser Sensorwerte wird nicht gegossen
-int sollTopf1 = 500;
+int sollTopf1 = 300;
 //int sollTopf2 = 300;
 //int sollTopf3 = 300;
 //int sollReserve = 580;
@@ -20,7 +20,7 @@ int istTopf1 = 700;
 //int istTopf3 = 700;
 
 //Wartezeit zwischen den Messungen
-int Wartezeit = 2000;
+int Wartezeit = 10000;
 
 //Solang wird bei zu trockenem Boden gepumpt
 int Pumpzeit = 3000;
@@ -60,11 +60,6 @@ void loop() {
   Serial.print("Wasser Topf 1: ");
   Serial.print(istTopf1);
   Serial.print("\t");   
-  //Serial.print("Wasser Topf 2: ");
-  //Serial.print(istTopf2);
-  //Serial.print("\t");   
-  //Serial.print("Wasser Topf 3: ");
-  //Serial.print(istTopf3);   
   Serial.println("\t");   
 
   //...und bei Bedarf pumpen
@@ -83,33 +78,6 @@ void loop() {
       Serial.print("\t");
       Serial.print("\t");
     }
-  /*  
-  if(istTopf2 > sollTopf2) 
-    {
-      digitalWrite(pumpeTopf2Pin, HIGH);
-      Serial.print("Topf2 zu trocken!!!"   );
-      Serial.print("\t");
-      delay(Pumpzeit);
-      digitalWrite(pumpeTopf2Pin, LOW);
-    } 
-  else
-    {
-      Serial.print("Topf2 ist ok!"); 
-      Serial.print("\t");
-      Serial.print("\t");
-    }
-
-  if(istTopf3 > sollTopf3) 
-    {
-      digitalWrite(pumpeTopf3Pin, HIGH);
-      Serial.println("Topf3 zu trocken!!!"   );
-      delay(Pumpzeit);
-      digitalWrite(pumpeTopf3Pin, LOW);
-    } 
-  else
-    {
-      Serial.println("Topf3 ist ok!"); 
-    }
-    */
+    
 delay(Wartezeit);
 }
