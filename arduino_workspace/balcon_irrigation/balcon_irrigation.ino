@@ -1,47 +1,54 @@
-int sensorTopf1Pin = A1;
-//int sensorTopf2Pin = A2;
-//int sensorTopf3Pin = A3;
 
-//Falls man einen Sensor für den Wasserstand braucht
-//int sensorReservePin = A0;
+int sensorPlant0Pin = A0;
+int sensorPLant1Pin = A1;
+//int sensorPlant2Pin = A2;
+//int sensorPlant3Pin = A3;
 
-int pumpeTopf1Pin = 13;
-//int pumpeTopf2Pin = 12;
-//int pumpeTopf3Pin = 13;
 
-//Unterhalb diser Sensorwerte wird nicht gegossen. Je höher die Messwerte desto trockener der Topf
-int sollTopf1 = 300;
+int pumpPlant0Pin = 10;
+int pumpPlant1Pin = 11;
+//int pumpPlant2Pin = 12;
+//int pumpPlant3Pin = 13;
+
+
+//Below those number there is no waterflow. The higher our reading the more dry our soil is
+int goalPlant0 = 300;
+int goalPlant1 = 300;
 //int sollTopf2 = 300;
 //int sollTopf3 = 300;
-//int sollReserve = 580;
 
-int istTopf1 = 700;
+int currentPlant0 = 700;
+int currentPlant1 = 700;
 //int istTopf2 = 700;
 //int istTopf3 = 700;
 
 //Wartezeit zwischen den Messungen
-int Wartezeit = 10000;
+// delay between measuring. 1000 = 1s
+int waitingTime = 20000;
 
-//Solang wird bei zu trockenem Boden gepumpt
-int Pumpzeit = 3000;
+//Time how long the pump is turned on
+int pumpTime = 3000;
 
 void setup() {
   
-  // Alle Sensoren sind Eingänge
-  pinMode(sensorTopf1Pin, INPUT);
-  //pinMode(sensorTopf2Pin, INPUT);
-  //pinMode(sensorTopf3Pin, INPUT);
-  //pinMode(sensorReservePin, INPUT);
+  //All sensors are input
+  pinMode(sensorPlant0Pin, INPUT);
+  pinMode(sensorPlant1Pin, INPUT);
+  //pinMode(sensorPlant2Pin, INPUT);
+  //pinMode(sensorPlant3Pin, INPUT);
 
-  //Alle Pumpen sind Ausgänge
-  pinMode(pumpeTopf1Pin, OUTPUT);
-  //pinMode(pumpeTopf2Pin, OUTPUT);
-  //pinMode(pumpeTopf3Pin, OUTPUT);
+  //all pumps are output
+  pinMode(pumpPlant0Pin, OUTPUT);
+  pinMode(pumpPlant1Pin, OUTPUT);
+  //pinMode(pumpPlant2Pin, OUTPUT);
+  //pinMode(pumpPlant3Pin, OUTPUT);
 
-  //Pumpen zu Begin aus
-  digitalWrite(pumpeTopf1Pin,LOW);
-  //digitalWrite(pumpeTopf2Pin,LOW);
-  //digitalWrite(pumpeTopf3Pin,LOW);
+
+  //pumps off at the beginning
+  digitalWrite(pumpPlant0Pin,LOW);
+  digitalWrite(pumpPlant1Pin,LOW);
+  //digitalWrite(pumpPlant2Pin,LOW);
+  //digitalWrite(pumpPlant3Pin,LOW);;
   
   Serial.begin(9600);
   
@@ -49,28 +56,27 @@ void setup() {
       
 void loop() {
   //Wartezeit für die Senoren zu Beginn
-  delay(Wartezeit);
+  delay(waitingTime);
 
   //Messen...
-  istTopf1 = analogRead(sensorTopf1Pin);
-  //istTopf2 = analogRead(sensorTopf2Pin);
-  //istTopf3 = analogRead(sensorTopf3Pin);
+  currentPlant0 = analogRead(sensorPlant0Pin);
+  currentPlant1 = analogRead(sensorPlant1Pin);
   
   //... Werte seriell ausgeben...
   Serial.print("Wasser Topf 1: ");
-  Serial.print(istTopf1);
+  Serial.print(currentPlant0);
   Serial.print("\t");   
   Serial.println("\t");   
 
   //...und bei Bedarf pumpen
-  if(istTopf1 > sollTopf1) 
+  if(currentPlant0 > goalPlant0) 
     {
-      digitalWrite(pumpeTopf1Pin, HIGH);
+      digitalWrite(pumpPlant0Pin, HIGH);
       Serial.print("Topf1 zu trocken!!!"   );
       Serial.print("\t");
       Serial.print("\t");
       delay(Pumpzeit);
-      digitalWrite(pumpeTopf1Pin, LOW);
+      digitalWrite(pumpPlant0Pin, LOW);
     } 
   else
     {
