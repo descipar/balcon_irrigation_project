@@ -1,15 +1,22 @@
+#include <Arduino.h>
+// Library for AZ Oled 1.3 Display
+#include <U8g2lib.h>
 
+U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
+u8g2_uint_t offset;
+u8g2_uint_t width;
+
+// Where are the sensors connected
 int sensorPlant0Pin = A0;
 int sensorPlant1Pin = A1;
 //int sensorPlant2Pin = A2;
 //int sensorPlant3Pin = A3;
 
-
+// where are the pumps connected
 int pumpPlant0Pin = 10;
 int pumpPlant1Pin = 11;
 //int pumpPlant2Pin = 12;
 //int pumpPlant3Pin = 13;
-
 
 //Below those number there is no waterflow. The higher our reading the more dry our soil is
 int goalPlant0 = 300;
@@ -22,8 +29,7 @@ int currentPlant1 = 700;
 //int istTopf2 = 700;
 //int istTopf3 = 700;
 
-//Wartezeit zwischen den Messungen
-// delay between measuring. 1000 = 1s
+// delay between measuring. 1000 = 1s. the more measuring the more power is drawn
 int waitingTime = 20000;
 
 //Time how long the pump is turned on
