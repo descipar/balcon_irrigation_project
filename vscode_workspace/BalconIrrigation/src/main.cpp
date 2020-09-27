@@ -61,9 +61,12 @@ void setup() {
 void loop() {
   //delay until the sensors can settle in. Capacity sensor are slowzu Beginn
   delay(waitingTime);
-
+  currentPlant0 = 0;
+  currentPlant1 = 0;
   //measuring
   currentPlant0 = analogRead(sensorPlant0Pin);
+  currentPlant1 = analogRead(sensorPlant1Pin);
+
 
 
   //... output for the serial port
@@ -90,7 +93,6 @@ void loop() {
     }
   
   //measuring
-  currentPlant1 = analogRead(sensorPlant1Pin);
 
 
   //... output for the serial port
@@ -99,7 +101,7 @@ void loop() {
   Serial.print("\t");   
   Serial.println("\t");
 
-  if(currentPlant0 > goalPlant0) 
+  if(currentPlant1 > goalPlant1) 
     {
       digitalWrite(pumpPlant1Pin, HIGH);
       Serial.print("Sensor 1 dry - pumping");
