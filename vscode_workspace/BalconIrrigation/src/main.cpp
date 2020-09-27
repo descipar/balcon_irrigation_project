@@ -1,18 +1,7 @@
+
+
 #include <Arduino.h>
-// Library for AZ Oled 1.3 Display
-#include <U8g2lib.h>
-//#ifdef U8X8_HAVE_HW_SPI
-//#include <SPI.h>
-//#endif
-#ifdef U8X8_HAVE_HW_I2C
-#include <Wire.h>
-#endif
 
-
-//setting uo oled display
-U8G2_SH1106_128X64_NONAME_F_HW_I2C u8g2(U8G2_R0, /* reset=*/ U8X8_PIN_NONE);
-//u8g2_uint_t offset;
-//u8g2_uint_t width;
 
 // Where are the sensors connected
 int sensorPlant0Pin = A0;
@@ -44,12 +33,6 @@ int waitingTime = 1000;
 int pumpTime = 3000;
 
 
-//String sensorValue = "A0";
-//String sensorText = "Sensor : ";
-//String completeText = "complete";
-
-String sensorValue, sensorText, completeText, pumpOn, pumpOff;
-
 void setup() {
   
   //All sensors are input
@@ -73,71 +56,65 @@ void setup() {
   
   Serial.begin(9600);
 
-  // display
-  //u8g2.begin();
-
-  // string setup
-  sensorValue = String();
-  sensorText = String();
-  completeText = String();
-  pumpOn = String("pumping");
-  pumpOff = String("not pumping");
-
 }
       
 void loop() {
-  //display
-  
-
   //delay until the sensors can settle in. Capacity sensor are slowzu Beginn
   delay(waitingTime);
 
   //measuring
   currentPlant0 = analogRead(sensorPlant0Pin);
-  sensorValue = String(currentPlant0);
-  sensorText = "Sensor 0: ";
-  completeText = sensorText + sensorValue;
+
 
   //... output for the serial port
-  Serial.print("complete wert: ");
-  Serial.print(completeText);
+  Serial.print("Sensor 0: ");
+  Serial.print(currentPlant0);
   Serial.print("\t");   
   Serial.println("\t");   
 
   //...condition to pump
   if(currentPlant0 > goalPlant0) 
     {
-      Wire.end();
-      u8g2.begin();
-      u8g2.firstPage();   
-      do 
-      {
-        u8g2.setFont(u8g2_font_ncenB14_tr);
-        u8g2.setCursor(0, 30);
-        u8g2.print(completeText);
-        u8g2.setCursor(0, 50);
-        u8g2.print(pumpOn);
-      } while ( u8g2.nextPage() );
       digitalWrite(pumpPlant0Pin, HIGH);
       Serial.print("Sensor 0 dry - pumping");
       Serial.print("\t");
       Serial.print("\t");
       delay(pumpTime);
       digitalWrite(pumpPlant0Pin, LOW);
-      u8g2.clear();
-      Wire.begin();
-
     } 
-  else {
-    Serial.print("iggfgfgfgc");
+  else 
+    {
+    Serial.print("Sensor 0 is wet enough");
+    Serial.print("\t");
+    Serial.print("\t");
+    }
+  
+  //measuring
+  currentPlant1 = analogRead(sensorPlant1Pin);
+
+
+  //... output for the serial port
+  Serial.print("Sensor 1: ");
+  Serial.print(currentPlant1);
+  Serial.print("\t");   
+  Serial.println("\t");
+
+  if(currentPlant0 > goalPlant0) 
+    {
+      digitalWrite(pumpPlant1Pin, HIGH);
+      Serial.print("Sensor 1 dry - pumping");
+      Serial.print("\t");
+      Serial.print("\t");
+      delay(pumpTime);
+      digitalWrite(pumpPlant1Pin, LOW);
+    } 
+  else 
+    {
+    Serial.print("Sensor 1 is wet enough");
     Serial.print("\t");
     Serial.print("\t");
     }
 
-  sensorValue = String();
-  sensorText = String();
-  completeText = String();
-  
     
 delay(waitingTime);
 }
