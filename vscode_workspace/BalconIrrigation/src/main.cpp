@@ -24,7 +24,7 @@ int currentPlant1 = 700;
 //int istTopf3 = 700;
 
 // delay between measuring. 1000 = 1s. the more measuring the more power is drawn
-int waitingTime = 1000;
+int waitingTime = 30000;
 
 //Time how long the pump is turned on
 int pumpTime = 1000;
@@ -90,7 +90,9 @@ void loop() {
   //measuring
   Serial.println("Next Sensor");
 
+
   //... output for the serial port
+  
   Serial.print("Sensor 1: ");
   Serial.print(currentPlant1);
   Serial.print("\t");   
@@ -111,8 +113,7 @@ void loop() {
     Serial.print("\t");
     Serial.println("\t");
     }
-
-  delay(waitingTime);
+  
   Serial.println("Loop end");
 
 }
