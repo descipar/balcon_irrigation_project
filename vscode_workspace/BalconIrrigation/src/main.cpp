@@ -27,7 +27,7 @@ int currentPlant1 = 700;
 int waitingTime = 30000;
 
 //Time how long the pump is turned on
-int pumpTime = 1000;
+int pumpTime = 3000;
 
 
 void setup() {
