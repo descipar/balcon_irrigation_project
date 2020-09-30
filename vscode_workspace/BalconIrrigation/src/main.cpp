@@ -24,10 +24,11 @@ int currentPlant1 = 700;
 //int istTopf3 = 700;
 
 // delay between measuring. 1000 = 1s. the more measuring the more power is drawn
+// any waiting time less than 30000 will not allow sensor to settle back.
 int waitingTime = 30000;
 
 //Time how long the pump is turned on
-int pumpTime = 1000;
+int pumpTime = 3000;
 
 
 void setup() {
