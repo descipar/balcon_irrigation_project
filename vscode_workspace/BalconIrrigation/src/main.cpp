@@ -27,7 +27,7 @@ int currentPlant1 = 700;
 // delays under 30000 do not seem to work as the sensors delivers wrong value
 int waitingTime = 30000;
 
-//Time how long the pump is turned on
+//Time how long the pump is turned on f
 int pumpTime = 3000;
 
 
