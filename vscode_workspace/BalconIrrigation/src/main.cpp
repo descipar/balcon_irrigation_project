@@ -23,7 +23,8 @@ int currentPlant1 = 700;
 //int istTopf2 = 700;
 //int istTopf3 = 700;
 
-// delay between measuring. 1000 = 1s. the more measuring the more power is drawn
+// delay between measuring. 1000 = 1s. the more measuring the more power is drawn. 
+// delays under 30000 do not seem to work as the sensors delivers wrong value
 int waitingTime = 30000;
 
 //Time how long the pump is turned on
