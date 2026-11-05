@@ -51,16 +51,19 @@ Der BC337 aus v1 ist an 3,3 V ungeeignet: Für 200–400 mA Pumpenstrom bräucht
 
 ## Pinbelegung (ESP32 DevKit)
 
+Festgelegt im Schaltplan (`hardware/v2/`), Board: **ESP32-DevKitC V4 (38 Pins, WROOM-32)**.
+
 | Funktion | GPIO | Hinweis |
 |---|---|---|
 | Sensor 1–5 | 32, 33, 34, 35, 36 (VP) | nur **ADC1** – ADC2 geht nicht mit WLAN |
-| Pumpe 1–5 | 16, 17, 18, 19, 23 | bleiben beim Boot ruhig |
-| I²C (SDA/SCL) | 21 / 22 | Display, Temp./Feuchte |
-| Tank-leer (Schwimmer) | 39 (VN) oder 27 | Eingang |
+| Pumpe 1–5 | 18, 19, 23, 25, 26 | keine Strapping-Pins, bleiben beim Boot ruhig |
+| I²C (SDA/SCL) | 21 / 22 | Display, Temp./Feuchte; 4,7k Pull-ups auf der Platine |
+| Tank leer (Schwimmer) | 39 (VN) | Eingang, 10k Pull-up auf 3,3 V, Schalter gegen GND |
+| Status-LED | 27 | |
+| Erweiterung (frei) | 4, 13, 16, 17 | auf Stiftleiste herausgeführt |
 
 **Meiden** für Ausgänge: GPIO 0, 2, 5, 12, 14, 15 (Strapping/Boot-Signale), 6–11 (Flash).
-
-> Finale Belegung wird beim PCB-Design festgelegt (`docs/v2-pcb.md`).
+GPIO 16/17 sind bei WROVER-Modulen durch PSRAM belegt – daher nicht für Pumpen verwendet.
 
 ## Logik (ESPHome / Home Assistant)
 
