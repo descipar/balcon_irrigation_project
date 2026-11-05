@@ -45,7 +45,7 @@ der Autorouter liefert funktionale, aber nicht unbedingt schöne Platinen.
 
 - [x] Konzept & Bauteilauswahl (siehe `v2-hardware.md`)
 - [x] Toolchain auf `serviceplasma` installiert
-- [ ] Schaltplan
+- [x] Schaltplan (`hardware/v2/`, ERC: 0 Fehler / 0 Warnungen) – Review durch Kai offen
 - [ ] Layout & Routing
 - [ ] DRC / Review
 - [ ] Fertigungsdaten (Gerber, BOM, CPL)
