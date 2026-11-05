@@ -190,7 +190,8 @@ class Schematic:
         sym = S("symbol", S("lib_id", lib_id), S("at", x, y, rot))
         if mirror:
             sym.append(S("mirror", Sym("y")))
-        sym += [S("unit", 1), S("exclude_from_sim", Sym("no")), S("in_bom", Sym("no") if ref.startswith("#") else Sym("yes")),
+        no_bom = ref.startswith("#") or lib_id.startswith("Mechanical:")
+        sym += [S("unit", 1), S("exclude_from_sim", Sym("no")), S("in_bom", Sym("no") if no_bom else Sym("yes")),
                 S("on_board", Sym("no") if ref.startswith("#") else Sym("yes")), S("dnp", Sym("no")), S("uuid", uid())]
         values = {"Reference": ref, "Value": value, "Footprint": footprint,
                   "Datasheet": props.get("Datasheet", [0, 0, "~"])[2]}
