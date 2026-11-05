@@ -5,7 +5,10 @@
 | `gen_schematic.py` | Erzeugt den Schaltplan (die Schaltung ist in `build()` definiert) |
 | `kicad/balcon_irrigation_v2.kicad_sch` | Generierter KiCad-9-Schaltplan (A3, 1 Blatt) |
 | `kicad/balcon_irrigation_v2.kicad_pro` | KiCad-Projekt |
-| `kicad/balcon_irrigation_v2.pdf` | PDF-Export zum Ansehen ohne KiCad |
+| `kicad/balcon_irrigation_v2.pdf` | Schaltplan als PDF |
+| `gen_layout.py` | Erzeugt und routet die Platine (Platzierung in `placement()`) |
+| `kicad/balcon_irrigation_v2.kicad_pcb` | Platine, 100 × 100 mm, 2 Lagen |
+| `kicad/balcon_irrigation_v2_top.pdf` / `_bottom.pdf` | Ober- und Unterseite als PDF |
 
 Der Schaltplan wird **nicht von Hand editiert**, sondern neu generiert:
 
@@ -18,6 +21,32 @@ kicad-cli sch export pdf kicad/balcon_irrigation_v2.kicad_sch
 Die Bibliotheken liegen standardmäßig unter `/usr/share/kicad`, ein anderer Ort geht über `KICAD_SHARE=...`.
 Die UUIDs sind deterministisch, deshalb erzeugt derselbe Code mit denselben Bibliotheken (9.0.2) eine byte-identische Datei.
 Die Verbindungen laufen über Netz-Labels und Power-Symbole an jedem Pin, nicht über gezeichnete Leitungen.
+
+## Layout
+
+```sh
+python3 gen_layout.py kicad/balcon_irrigation_v2.kicad_sch     # ~2 min, braucht pcbnew + Freerouting
+kicad-cli pcb drc --schematic-parity kicad/balcon_irrigation_v2.kicad_pcb
+```
+
+Ablauf des Skripts:
+1. Netzliste aus dem Schaltplan exportieren.
+2. Footprints platzieren.
+3. Umriss, Bestückungsdruck und Sperrfläche unter der Antenne anlegen.
+4. Leiterbahnen mit Freerouting verlegen.
+5. Erst danach die GND-Flächen auf beiden Lagen gießen.
+
+Netzklassen: `Power` (+5V, VIN, PUMPx_N) 0,8 mm, `Ground` 0,5 mm, sonst 0,25 mm.
+Freerouting liefert bei jedem Lauf ein etwas anderes Ergebnis.
+Das eingecheckte `.kicad_pcb` ist der geprüfte Stand.
+
+Platzierung:
+- **Links:** Versorgung (Hohlbuchse, Schraubklemme, Sicherung, Verpolschutz, Elko)
+- **Oben:** Sensor-, Tank- und I²C-Buchsen
+- **Mitte:** DevKit, Antenne rechts über dem Platinenrand, USB links
+- **Unten:** 5 Pumpenklemmen mit Treibern
+- **Rechts:** Erweiterungsleiste
+- **Ecken:** 4 × M3-Bohrungen
 
 ## Schaltung
 

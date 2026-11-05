@@ -46,7 +46,7 @@ der Autorouter liefert funktionale, aber nicht unbedingt schöne Platinen.
 - [x] Konzept & Bauteilauswahl (siehe `v2-hardware.md`)
 - [x] Toolchain auf `serviceplasma` installiert
 - [x] Schaltplan (`hardware/v2/`, ERC: 0 Fehler / 0 Warnungen) – Review durch Kai offen
-- [ ] Layout & Routing
-- [ ] DRC / Review
+- [x] Layout & Routing (`hardware/v2/gen_layout.py`, 100 × 100 mm, 2 Lagen, Freerouting)
+- [x] DRC: 0 Fehler, 0 offene Verbindungen (nur Silkscreen-Überlappungen) – Review durch Kai offen
 - [ ] Fertigungsdaten (Gerber, BOM, CPL)
 - [ ] Bestellung (manuell durch Kai)
